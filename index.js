@@ -9,15 +9,10 @@ class Row {
         this.date_of_birth = g;
     }
     create() {
-        const group = document.createElement('ul');
-        group.className = 'list-group list-group-horizontal';
-        Object.keys(this).forEach(key => {
-            const item = document.createElement('li');
-            item.className = 'list-group-item';
-            item.textContent = this[key];
-            group.appendChild(item)
-        });
-        return document.querySelector('body>div#listContainer').appendChild(group);
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item';
+        listItem.textContent = `${this.title} | ${this.name} | ${this.surname} | ${this.gender} | ${this.region} | ${this.age} | ${this.date_of_birth}`;
+        return listItem;
     }
 }
 
@@ -25,17 +20,28 @@ const retrieveNames = async (a) => {
     const res = await fetch(`http://uinames.com/api/?amount=${a}&ext`);
     const json = await res.json();
     for (i in json) {
-        new Row(json[i].title, json[i].name, json[i].surname, json[i].gender, json[i].region, json[i].age, json[i].birthday.mdy).create();
+        const row = new Row(
+            json[i].title,
+            json[i].name,
+            json[i].surname,
+            json[i].gender,
+            json[i].region,
+            json[i].age,
+            json[i].birthday.mdy
+        ).create();
+        document.querySelector('ul.list-group').appendChild(row);
     }
-    console.log(json);
 }
 
 function validate() {
-    var inputCount = document.querySelector('input#count');
+    var inputCount = document.querySelector('input#nameCountInput');
+    var list = document.querySelector('ul.list-group');
     if (inputCount.value > 500) {
-        alert('The number of names to return cannot exceed 500!');
-        console.error('Input too large');
+        return alert('The number of names to return cannot exceed 500!');
     } else {
-        retrieveNames(inputCount.value);
+        if (list.children.length > 0) {
+            list.innerHTML = '';
+        }
+        return retrieveNames(inputCount.value);
     }
 }

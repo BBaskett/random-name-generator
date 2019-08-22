@@ -12,24 +12,16 @@
 </head>
 
 <body>
-    <div class="card">
-        <div class="card-header">
-            Random Name Generator
+    <form>
+        <div class="form-group">
+            <label for="nameCountInput">How many names do you want returned?</label>
+            <input type="number" class="form-control" id="nameCountInput" aria-describedby="nameCount"
+                placeholder="Enter a number" max="500">
+            <small id="countWarning" class="form-text text-muted">You cannot exceed 500 names per request.</small>
         </div>
-        <div class="card-body">
-            <h5 class="card-title">How many do you want?</h5>
-            <p class="card-text">Input the amount of random names you would like returned.</p>
-            <div class="input-group mb-3">
-                <input type="number" class="form-control" placeholder="Name count" aria-label="Name Count"
-                    aria-describedby="button-addon2" id="count" max="500">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-primary" type="button" id="button-addon2"
-                        onclick="validate()">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="listContainer"></div>
+        <button type="button" class="btn btn-primary" onclick="validate()">Get Names</button>
+    </form>
+    <ul class="list-group"></ul>
     <script src="index.js"></script>
 </body>
 
