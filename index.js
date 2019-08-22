@@ -17,7 +17,7 @@ class Row {
 }
 
 const retrieveNames = async (a) => {
-    const res = await fetch(`http://uinames.com/api/?amount=${a}&ext`);
+    const res = await fetch(`https://uinames.com/api/?amount=${a}&ext`);
     const json = await res.json();
     for (i in json) {
         const row = new Row(
